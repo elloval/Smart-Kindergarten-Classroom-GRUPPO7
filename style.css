@@ -60,6 +60,10 @@
     color: var(--blue); text-align: left; transition: background .15s;
     font-family: var(--font-display);
   }
+  /* Fa diventare l'icona bianca quando il bottone della sidebar è attivo */
+.nav-btn.active .nav-icon {
+    filter: brightness(0) invert(1);
+}
   .nav-btn:hover { background: var(--blue-light); }
   .nav-btn.active { background: var(--blue); color: var(--white) !important; }
   .nav-btn .nav-icon { font-size: 20px; width: 26px; }
@@ -82,32 +86,69 @@
   .section-label { font-size: 18px; font-weight: 700; color: var(--blue); padding: 18px 32px 6px; letter-spacing: .3px; }
 
   /* ─── ALERT BANNER ─── */
-  #alert-banner {
-    margin: 16px 32px 0; background: var(--white); border: 2px solid var(--orange);
-    border-radius: var(--radius-card); display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 18px; gap: 16px; box-shadow: var(--shadow-card);
-    animation: slideDown .3s ease;
-  }
-  @keyframes slideDown { from { opacity:0; transform: translateY(-10px); } to { opacity:1; transform:none; } }
-  #alert-banner.hidden { display: none; }
-  .alert-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
-  .alert-icon { font-size: 26px; margin-top: 2px; }
-  .alert-texts .alert-title { font-size: 13px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: .8px; }
-  .alert-texts .alert-body { font-size: 14px; color: var(--text-mid); margin-top: 2px; }
-  .alert-texts .alert-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
-  .alert-card-compact {
-    display: flex; align-items: center; gap: 10px; background: var(--blue-light);
-    border-radius: 10px; padding: 8px 12px; min-width: 200px; border-left: 4px solid var(--blue);
-  }
-  .compact-emoji { font-size: 22px; }
-  .compact-info .compact-cat { font-size: 9px; color: var(--blue-dark); background: var(--white); border-radius: 8px; padding: 1px 6px; font-weight: 600; display: inline-block; }
-  .compact-info .compact-name { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 1px; }
-  .compact-info .compact-dur { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-  .btn-avvia { background: var(--blue); color: var(--white); border: none; border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background .15s; }
-  .btn-avvia:hover { background: var(--blue-dark); }
-  .btn-ignore { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background .15s; }
-  .btn-ignore:hover { background: var(--bg); }
+#alert-banner {
+  position: relative;
+  margin: 16px 32px 0; 
+  background: var(--white); 
+  border: 2px solid var(--orange);
+  border-radius: var(--radius-card); 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  padding: 14px 18px; 
+  padding-right: 48px; /* Spazio extra a destra per non sovrapporsi alla X */
+  gap: 16px; 
+  box-shadow: var(--shadow-card);
+  animation: slideDown .3s ease;
+}
 
+@keyframes slideDown { 
+  from { opacity:0; transform: translateY(-10px); } 
+  to { opacity:1; transform:none; } 
+}
+
+#alert-banner.hidden { display: none; }
+.alert-left { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
+.alert-icon { font-size: 26px; margin-top: 2px; }
+.alert-texts .alert-title { font-size: 13px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: .8px; }
+.alert-texts .alert-body { font-size: 14px; color: var(--text-mid); margin-top: 2px; }
+.alert-texts .alert-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+/* Card allungata (min-width aumentato) e layout orizzontale */
+.alert-card-compact {
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  background: var(--blue-light);
+  border-radius: 10px; 
+  padding: 12px 18px; 
+  min-width: 480px; /* Più allungata rispetto ai 400px precedenti */
+  border-left: 8px solid var(--blue);
+}
+
+.compact-emoji { font-size: 22px; }
+.compact-info .compact-cat { font-size: 9px; color: var(--blue-dark); background: var(--white); border-radius: 8px; padding: 1px 6px; font-weight: 600; display: inline-block; }
+.compact-info .compact-name { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 1px; }
+.compact-info .compact-dur { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+/* Bottone allineato a destra tramite margin-left: auto */
+.btn-avvia { 
+  margin-left: auto; /* Spinge il bottone interamente a destra nella card */
+  background: var(--blue); 
+  color: var(--white); 
+  border: none; 
+  border-radius: 8px; 
+  padding: 8px 20px; 
+  font-size: 13px; 
+  font-weight: 700; 
+  cursor: pointer; 
+  white-space: nowrap; 
+  transition: background .15s; 
+}
+.btn-avvia:hover { background: var(--blue-dark); }
+
+.btn-ignore { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background .15s; }
+.btn-ignore:hover { background: var(--bg); }
   /* ─── KPI CARDS ─── */
   .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 16px 32px 0; }
   .kpi-card {
